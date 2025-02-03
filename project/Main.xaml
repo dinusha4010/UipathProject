@@ -101,7 +101,7 @@
       <AssemblyReference>UiPath.Platform</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="Main Sequence" sap:VirtualizedContainerService.HintSize="892,5212.8" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="Main Sequence" sap:VirtualizedContainerService.HintSize="892.0000000000001,5803.2" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="sd:DataTable" Name="dt_invoiceHeader" />
       <Variable x:TypeArguments="sd:DataTable" Name="dt_invoiceRow" />
@@ -146,13 +146,13 @@
         <InArgument x:TypeArguments="s:String[]">[Directory.GetFiles("SourceData","*.pdf")]</InArgument>
       </Assign.Value>
     </Assign>
-    <ui:ForEach x:TypeArguments="x:String" CurrentIndex="[index]" DisplayName="For Each PdfFile" sap:VirtualizedContainerService.HintSize="504,4625.6" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[files]">
+    <ui:ForEach x:TypeArguments="x:String" CurrentIndex="[index]" DisplayName="For Each PdfFile" sap:VirtualizedContainerService.HintSize="504,5216" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[files]">
       <ui:ForEach.Body>
         <ActivityAction x:TypeArguments="x:String">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="x:String" Name="PdfFile" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="502.4,4495.2" sap2010:WorkflowViewState.IdRef="Sequence_2">
+          <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="502.4,5085.6" sap2010:WorkflowViewState.IdRef="Sequence_2">
             <Sequence.Variables>
               <Variable x:TypeArguments="x:String" Name="variable1" />
             </Sequence.Variables>
@@ -173,7 +173,7 @@
               </Assign.Value>
             </Assign>
             <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="468.8,174.4" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Error" Message="[companyCode]" />
-            <Switch x:TypeArguments="x:String" DisplayName="Switch" Expression="[companyCode]" sap:VirtualizedContainerService.HintSize="468.8,3683.2" sap2010:WorkflowViewState.IdRef="Switch`1_1">
+            <Switch x:TypeArguments="x:String" DisplayName="Switch" Expression="[companyCode]" sap:VirtualizedContainerService.HintSize="468.8,4273.6" sap2010:WorkflowViewState.IdRef="Switch`1_1">
               <Switch.Default>
                 <Sequence DisplayName="Default" sap:VirtualizedContainerService.HintSize="467.2,89.6" sap2010:WorkflowViewState.IdRef="Sequence_3">
                   <sap:WorkflowViewStateService.ViewState>
@@ -183,10 +183,12 @@
                   </sap:WorkflowViewStateService.ViewState>
                 </Sequence>
               </Switch.Default>
-              <Sequence x:Key="1234567-8" DisplayName="Body" sap:VirtualizedContainerService.HintSize="467.2,1968.8" sap2010:WorkflowViewState.IdRef="Sequence_4">
+              <Sequence x:Key="1234567-8" DisplayName="Body" sap:VirtualizedContainerService.HintSize="467.2,2559.2" sap2010:WorkflowViewState.IdRef="Sequence_4">
                 <Sequence.Variables>
                   <Variable x:TypeArguments="x:String" Name="variable2" />
                   <Variable x:TypeArguments="x:String" Name="variable3" />
+                  <Variable x:TypeArguments="x:String" Name="VATAmountString" />
+                  <Variable x:TypeArguments="x:String" Name="TotalString" />
                 </Sequence.Variables>
                 <sap:WorkflowViewStateService.ViewState>
                   <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -201,76 +203,103 @@
                     <InArgument x:TypeArguments="sd:DataTable" x:Key="in_RowData">[dt_invoiceRow]</InArgument>
                   </ui:InvokeWorkflowFile.Arguments>
                 </ui:InvokeWorkflowFile>
-                <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Get Invoice number" sap:VirtualizedContainerService.HintSize="433.6,176" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_10" UnSafe="False" WorkflowFileName="HeaderDetails.xaml">
+                <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Get Invoice Number" sap:VirtualizedContainerService.HintSize="433.6,176" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_23" UnSafe="False" WorkflowFileName="Get_Header_Details.xaml">
                   <ui:InvokeWorkflowFile.Arguments>
-                    <InArgument x:TypeArguments="x:String" x:Key="in_PDFText">[pdfText]</InArgument>
-                    <OutArgument x:TypeArguments="x:String" x:Key="out_String">[invoiceNumber]</OutArgument>
-                    <InArgument x:TypeArguments="x:String" x:Key="in_string">Laskun numero:</InArgument>
-                    <InArgument x:TypeArguments="x:Int32" x:Key="in_ResultLength">6</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_PdfText">[pdfText]</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_StartString">Laskun numero:</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_NextString">Eräpäivä:</InArgument>
+                    <OutArgument x:TypeArguments="x:String" x:Key="out_Results">[invoiceNumber]</OutArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_PreviousString" />
                   </ui:InvokeWorkflowFile.Arguments>
                 </ui:InvokeWorkflowFile>
-                <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Get reference number" sap:VirtualizedContainerService.HintSize="433.6,176" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_12" UnSafe="False" WorkflowFileName="HeaderDetails.xaml">
+                <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Get Reference Number" sap:VirtualizedContainerService.HintSize="433.6,176" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_24" UnSafe="False" WorkflowFileName="Get_Header_Details.xaml">
                   <ui:InvokeWorkflowFile.Arguments>
-                    <InArgument x:TypeArguments="x:String" x:Key="in_PDFText">[pdfText]</InArgument>
-                    <OutArgument x:TypeArguments="x:String" x:Key="out_String">[referenceNumber]</OutArgument>
-                    <InArgument x:TypeArguments="x:String" x:Key="in_string">Viitenumero:</InArgument>
-                    <InArgument x:TypeArguments="x:Int32" x:Key="in_ResultLength">7</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_PdfText">[pdfText]</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_StartString">Viitenumero:</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_NextString">Ostajantie</InArgument>
+                    <OutArgument x:TypeArguments="x:String" x:Key="out_Results">[referenceNumber]</OutArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_PreviousString" />
                   </ui:InvokeWorkflowFile.Arguments>
                 </ui:InvokeWorkflowFile>
-                <Assign sap:VirtualizedContainerService.HintSize="433.6,113.6" sap2010:WorkflowViewState.IdRef="Assign_5">
-                  <Assign.To>
-                    <OutArgument x:TypeArguments="x:String">[companyName]</OutArgument>
-                  </Assign.To>
-                  <Assign.Value>
-                    <InArgument x:TypeArguments="x:String">[pdfText.Substring(pdfText.IndexOf(" Oy")-17,20).Trim()]</InArgument>
-                  </Assign.Value>
-                </Assign>
-                <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Get Invoice Date" sap:VirtualizedContainerService.HintSize="433.6,176" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_16" UnSafe="False" WorkflowFileName="HeaderDetails.xaml">
+                <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Get Company Name" sap:VirtualizedContainerService.HintSize="433.6,176" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_25" UnSafe="False" WorkflowFileName="Get_Header_Details.xaml">
                   <ui:InvokeWorkflowFile.Arguments>
-                    <InArgument x:TypeArguments="x:String" x:Key="in_PDFText">[pdfText]</InArgument>
-                    <OutArgument x:TypeArguments="x:String" x:Key="out_String">[invoiceDate]</OutArgument>
-                    <InArgument x:TypeArguments="x:String" x:Key="in_string">Päiväys:</InArgument>
-                    <InArgument x:TypeArguments="x:Int32" x:Key="in_ResultLength">10</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_PdfText">[pdfText]</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_StartString">Invoice</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_NextString">Mallintie</InArgument>
+                    <OutArgument x:TypeArguments="x:String" x:Key="out_Results">[companyName]</OutArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_PreviousString" />
                   </ui:InvokeWorkflowFile.Arguments>
                 </ui:InvokeWorkflowFile>
-                <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Get Due Date" sap:VirtualizedContainerService.HintSize="433.6,176" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_17" UnSafe="False" WorkflowFileName="HeaderDetails.xaml">
+                <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Get Invoice Date" sap:VirtualizedContainerService.HintSize="433.6,176" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_26" UnSafe="False" WorkflowFileName="Get_Header_Details.xaml">
                   <ui:InvokeWorkflowFile.Arguments>
-                    <InArgument x:TypeArguments="x:String" x:Key="in_PDFText">[pdfText]</InArgument>
-                    <OutArgument x:TypeArguments="x:String" x:Key="out_String">[dueDate]</OutArgument>
-                    <InArgument x:TypeArguments="x:String" x:Key="in_string">Eräpäivä:</InArgument>
-                    <InArgument x:TypeArguments="x:Int32" x:Key="in_ResultLength">10</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_PdfText">[pdfText]</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_StartString">Päiväys:</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_NextString">Laskun</InArgument>
+                    <OutArgument x:TypeArguments="x:String" x:Key="out_Results">[invoiceDate]</OutArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_PreviousString" />
                   </ui:InvokeWorkflowFile.Arguments>
                 </ui:InvokeWorkflowFile>
-                <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Get Bank Account Number" sap:VirtualizedContainerService.HintSize="433.6,176" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_18" UnSafe="False" WorkflowFileName="HeaderDetails.xaml">
+                <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Get Due Date" sap:VirtualizedContainerService.HintSize="433.6,176" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_28" UnSafe="False" WorkflowFileName="Get_Header_Details.xaml">
                   <ui:InvokeWorkflowFile.Arguments>
-                    <InArgument x:TypeArguments="x:String" x:Key="in_PDFText">[pdfText]</InArgument>
-                    <OutArgument x:TypeArguments="x:String" x:Key="out_String">[bankAccountNumber]</OutArgument>
-                    <InArgument x:TypeArguments="x:String" x:Key="in_string">IBAN</InArgument>
-                    <InArgument x:TypeArguments="x:Int32" x:Key="in_ResultLength">22</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_PdfText">[pdfText]</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_StartString">Eräpäivä:</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_NextString">Customer:</InArgument>
+                    <OutArgument x:TypeArguments="x:String" x:Key="out_Results">[dueDate]</OutArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_PreviousString" />
                   </ui:InvokeWorkflowFile.Arguments>
                 </ui:InvokeWorkflowFile>
-                <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Get amount ExclVAT" sap:VirtualizedContainerService.HintSize="433.6,176" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_7" UnSafe="False" WorkflowFileName="GetAmoutType1.xaml">
+                <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Get Bank Account Number" sap:VirtualizedContainerService.HintSize="433.6,176" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_29" UnSafe="False" WorkflowFileName="Get_Header_Details.xaml">
                   <ui:InvokeWorkflowFile.Arguments>
-                    <OutArgument x:TypeArguments="x:Double" x:Key="out_vat">[amountExcVAT]</OutArgument>
-                    <InArgument x:TypeArguments="x:String" x:Key="in_PDFText">[pdfText]</InArgument>
-                    <InArgument x:TypeArguments="x:Int32" x:Key="in_CharOccurrence">1</InArgument>
-                    <InArgument x:TypeArguments="x:String" x:Key="in_searchString">Amount excl. VAT</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_PdfText">[pdfText]</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_StartString">IBAN</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_NextString">00100</InArgument>
+                    <OutArgument x:TypeArguments="x:String" x:Key="out_Results">[bankAccountNumber]</OutArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_PreviousString" />
                   </ui:InvokeWorkflowFile.Arguments>
                 </ui:InvokeWorkflowFile>
-                <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Get VAT Amount" sap:VirtualizedContainerService.HintSize="433.6,176" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" UnSafe="False" WorkflowFileName="GetAmoutType1.xaml">
+                <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Get Amount Excl Vat String" sap:VirtualizedContainerService.HintSize="433.6,176" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_30" UnSafe="False" WorkflowFileName="Get_Header_Details.xaml">
                   <ui:InvokeWorkflowFile.Arguments>
-                    <OutArgument x:TypeArguments="x:Double" x:Key="out_vat">[VATAmount]</OutArgument>
-                    <InArgument x:TypeArguments="x:String" x:Key="in_PDFText">[pdfText]</InArgument>
-                    <InArgument x:TypeArguments="x:Int32" x:Key="in_CharOccurrence">5</InArgument>
-                    <InArgument x:TypeArguments="x:String" x:Key="in_searchString">VAT</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_PdfText">[pdfText]</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_StartString">Amount excl. VAT</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_NextString">€</InArgument>
+                    <OutArgument x:TypeArguments="x:String" x:Key="out_Results">[amountExcVATString]</OutArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_PreviousString" />
                   </ui:InvokeWorkflowFile.Arguments>
                 </ui:InvokeWorkflowFile>
-                <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Get Total Amount" sap:VirtualizedContainerService.HintSize="433.6,176" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_4" UnSafe="False" WorkflowFileName="GetAmoutType1.xaml">
+                <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Convert Amount Excl Vat String to Double" sap:VirtualizedContainerService.HintSize="433.6,176" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_31" UnSafe="False" WorkflowFileName="Get_Double.xaml">
                   <ui:InvokeWorkflowFile.Arguments>
-                    <OutArgument x:TypeArguments="x:Double" x:Key="out_vat">[totalAmount]</OutArgument>
-                    <InArgument x:TypeArguments="x:String" x:Key="in_PDFText">[pdfText]</InArgument>
-                    <InArgument x:TypeArguments="x:Int32" x:Key="in_CharOccurrence">2</InArgument>
-                    <InArgument x:TypeArguments="x:String" x:Key="in_searchString">Total</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_string">[amountExcVATString]</InArgument>
+                    <OutArgument x:TypeArguments="x:Double" x:Key="out_Double">[amountExcVAT]</OutArgument>
+                  </ui:InvokeWorkflowFile.Arguments>
+                </ui:InvokeWorkflowFile>
+                <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="VAT Amount String" sap:VirtualizedContainerService.HintSize="433.6,176" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_34" UnSafe="False" WorkflowFileName="Get_Header_Details.xaml">
+                  <ui:InvokeWorkflowFile.Arguments>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_PdfText">[pdfText]</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_StartString">VAT</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_NextString">€</InArgument>
+                    <OutArgument x:TypeArguments="x:String" x:Key="out_Results">[VATAmountString]</OutArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_PreviousString">Amount excl. VAT</InArgument>
+                  </ui:InvokeWorkflowFile.Arguments>
+                </ui:InvokeWorkflowFile>
+                <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="VAT amount Double" sap:VirtualizedContainerService.HintSize="433.6,176" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_35" UnSafe="False" WorkflowFileName="Get_Double.xaml">
+                  <ui:InvokeWorkflowFile.Arguments>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_string">[VATAmountString]</InArgument>
+                    <OutArgument x:TypeArguments="x:Double" x:Key="out_Double">[VATAmount]</OutArgument>
+                  </ui:InvokeWorkflowFile.Arguments>
+                </ui:InvokeWorkflowFile>
+                <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Get_Header_Details - Invoke Workflow File (Get_Header_Details.xaml)" sap:VirtualizedContainerService.HintSize="433.6,176" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_36" UnSafe="False" WorkflowFileName="Get_Header_Details.xaml">
+                  <ui:InvokeWorkflowFile.Arguments>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_PdfText">[pdfText]</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_StartString">Total</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_NextString">€</InArgument>
+                    <OutArgument x:TypeArguments="x:String" x:Key="out_Results">[TotalString]</OutArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_PreviousString">Amount excl. VAT</InArgument>
+                  </ui:InvokeWorkflowFile.Arguments>
+                </ui:InvokeWorkflowFile>
+                <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Get_Double - Invoke Workflow File (Get_Double.xaml)" sap:VirtualizedContainerService.HintSize="433.6,176" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_37" UnSafe="False" WorkflowFileName="Get_Double.xaml">
+                  <ui:InvokeWorkflowFile.Arguments>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_string">[TotalString]</InArgument>
+                    <OutArgument x:TypeArguments="x:Double" x:Key="out_Double">[totalAmount]</OutArgument>
                   </ui:InvokeWorkflowFile.Arguments>
                 </ui:InvokeWorkflowFile>
                 <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[new Object(){invoiceNumber,companyName,referenceNumber,invoiceDate,dueDate,companyCode,bankAccountNumber,amountExcVAT,VATAmount,totalAmount}]" DataTable="[dt_invoiceHeader]" DisplayName="Add Header Data" sap:VirtualizedContainerService.HintSize="433.6,211.2" sap2010:WorkflowViewState.IdRef="AddDataRow_1" />

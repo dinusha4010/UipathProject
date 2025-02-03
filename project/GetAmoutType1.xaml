@@ -85,7 +85,7 @@
       <AssemblyReference>System.Collections.NonGeneric</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="GetVATForCase1" sap:VirtualizedContainerService.HintSize="892.0000000000001,2328.8" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="GetVATForCase1" sap:VirtualizedContainerService.HintSize="892.0000000000001,1982.4" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:Int32" Name="index" />
       <Variable x:TypeArguments="x:Int32" Default="0" Name="i" />
@@ -106,7 +106,7 @@
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <Assign sap:VirtualizedContainerService.HintSize="468.8,112.8" sap2010:WorkflowViewState.IdRef="Assign_1">
+    <Assign sap:VirtualizedContainerService.HintSize="468.8,113.6" sap2010:WorkflowViewState.IdRef="Assign_1">
       <Assign.To>
         <OutArgument x:TypeArguments="x:Int32">[index]</OutArgument>
       </Assign.To>
@@ -114,16 +114,16 @@
         <InArgument x:TypeArguments="x:Int32">[in_PDFText.IndexOf(in_searchString)]</InArgument>
       </Assign.Value>
     </Assign>
-    <ui:InterruptibleWhile Condition="[i&lt;in_CharOccurrence-1]" CurrentIndex="[SearchstringLength]" DisplayName="While" sap:VirtualizedContainerService.HintSize="468.8,756" sap2010:WorkflowViewState.IdRef="InterruptibleWhile_1" MaxIterations="{x:Null}">
+    <ui:InterruptibleWhile Condition="[i&lt;in_CharOccurrence-1]" CurrentIndex="[SearchstringLength]" DisplayName="While" sap:VirtualizedContainerService.HintSize="468.8,583.2" sap2010:WorkflowViewState.IdRef="InterruptibleWhile_1">
       <ui:InterruptibleWhile.Body>
-        <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="467.2,625.6" sap2010:WorkflowViewState.IdRef="Sequence_2">
+        <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="467.2,452.8" sap2010:WorkflowViewState.IdRef="Sequence_2">
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
           <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="433.6,174.4" sap2010:WorkflowViewState.IdRef="LogMessage_7" Level="Error" Message="[&quot;i: &quot; &amp; i &amp; &quot;, index: &quot; &amp; index &amp; &quot;, in_searchString: &quot; &amp; in_searchString &amp; &quot;, in_PDFText length: &quot; &amp; in_PDFText.Length]" />
-          <Assign sap:VirtualizedContainerService.HintSize="433.6,112.8" sap2010:WorkflowViewState.IdRef="Assign_2">
+          <Assign sap:VirtualizedContainerService.HintSize="433.6,113.6" sap2010:WorkflowViewState.IdRef="Assign_2">
             <Assign.To>
               <OutArgument x:TypeArguments="x:Int32">[index]</OutArgument>
             </Assign.To>
@@ -131,8 +131,7 @@
               <InArgument x:TypeArguments="x:Int32">[in_PDFText.IndexOf(in_searchString, index + 1)]</InArgument>
             </Assign.Value>
           </Assign>
-          <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="433.6,174.4" sap2010:WorkflowViewState.IdRef="LogMessage_9" Level="Error" Message="[index]" />
-          <Assign sap:VirtualizedContainerService.HintSize="433.6,104" sap2010:WorkflowViewState.IdRef="Assign_4">
+          <Assign sap:VirtualizedContainerService.HintSize="433.6,104.8" sap2010:WorkflowViewState.IdRef="Assign_4">
             <Assign.To>
               <OutArgument x:TypeArguments="x:Int32">[i]</OutArgument>
             </Assign.To>
@@ -143,7 +142,6 @@
         </Sequence>
       </ui:InterruptibleWhile.Body>
     </ui:InterruptibleWhile>
-    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="468.8,174.4" sap2010:WorkflowViewState.IdRef="LogMessage_8" Level="Error" Message="[index]" />
     <Assign sap:VirtualizedContainerService.HintSize="468.8,113.6" sap2010:WorkflowViewState.IdRef="Assign_6">
       <Assign.To>
         <OutArgument x:TypeArguments="x:Int32">[indexOfEuro]</OutArgument>
@@ -205,7 +203,7 @@
               <InArgument x:TypeArguments="x:String">[in_PDFText.Substring(index +SearchstringLength, indexOfDecimal+3-index-SearchstringLength).Trim()]</InArgument>
             </Assign.Value>
           </Assign>
-          <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="433.6,165.6" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Trace" Message="[&quot;Without Euro&quot; +VatString]" />
+          <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="433.6,165.6" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Fatal" Message="[&quot;Without Euro&quot; +VatString]" />
         </Sequence>
       </If.Else>
     </If>
